@@ -1,0 +1,322 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Courier',monospace;
+  font-weight: 400;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+html {
+  overflow: hidden; }
+
+body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-align-content: stretch;
+      -ms-flex-line-pack: stretch;
+          align-content: stretch;
+}
+ 
+input {
+    height: 20px;
+	font-size: 1.2em;
+	padding: 0;
+	color: white;
+	background-color: black;
+	border: none;
+}
+
+input[type=date] {
+    width: 220px;
+    font-size: 1.0em;
+    color: white;
+    background-color: black;
+    border: none;
+}
+
+input[type=text] {
+    height: 32px;
+}
+
+input[type=number] {
+    color: white;
+    font-size: 1.2em;
+}
+
+.check {
+    width: 24px;
+	height: 24px;
+	vertical-align: middle;
+    float: right;
+    accent-color: #000;
+}
+
+.sign {
+    background: none;
+	width: 24px;
+	height: 24px;
+	margin-left:10px;
+	margin-right: 10px;
+	border: none;
+	font-size: 2em;
+	font-weight: bold;
+	color: white;
+}
+
+.header {
+  width: 100%;
+  height: 40px;
+  color: white;
+  background: black;
+  position: fixed;
+  font-size: 1.2em;
+  z-index: 5;
+}
+
+.text-button {
+	border: none;
+	margin: 15px;
+	padding: 5px;
+	font-size:1.2em;
+	font-weight: bold;
+	color: white;
+	background: none;
+	float: right;
+}
+
+.text-button:disabled {
+	color: gray;
+}
+
+.round-button {
+	display: block;
+	position: fixed;
+	width: 50px;
+	height: 50px;
+	border: none;
+	border-radius: 50%;
+	z-index: 5;
+}
+
+.round-button img {
+	display: block;
+	width: 24px;
+	height: 24px;
+}
+  
+.list {
+    margin-top: 36px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    background-color: #444;
+    padding: 0 0.5em;
+}
+
+.list-item {
+	width: 100%;
+	padding-top: 10px;
+	text-align: left;
+	color: white;
+	font-size: 1.2em; 
+	display: block;
+}
+
+.date {
+	color: white;
+	font-size: 0.8em;
+}
+
+.comment {
+    position: absolute;
+    left: 20%;
+    /* width: 20%;*/
+}
+
+.amount {
+	float: right;
+	color: white;
+}
+
+.amount-debit {
+	float: right;
+	color: yellow;
+}
+
+.dialog {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	padding: 10px;
+	color: white;
+	background-color: black;
+	z-index: 10;
+	display: none;
+}
+
+.dialog-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.dialog-body {
+  margin: 10px;
+  width: 100%;
+  color: white;
+  font-size: 1em;
+  background: none;
+}
+  
+.dialog-body select {
+    width: 45%;
+	height: 32px;
+	color: white;
+	font-size: 1em;
+	border: 1px solid white;
+	background-color: black;
+	/*display: none;*/
+}
+
+.dialog-buttons {
+  margin: 10px;
+}
+
+.icon-button {
+	width: 36px;
+	height: 36px;
+	padding: 12px;
+	border: none;
+}
+
+#main {
+	padding-top: 10px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; 
+  background: &333;
+    /*margin-top: 30px;*/
+    width: 100%;
+    position: relative;
+    color: white;
+    background-color: #444;
+}
+
+#heading {
+  font-family: 'Courier',monospace;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 10px;
+}
+
+#listPanel {
+	position: absolute;
+	top: 36px;
+	width: 100%;
+}
+
+#curtain {
+	position: fixed;
+	left: 0;
+	top:0;
+	width: 100%;
+	height: 0;
+	background-color: #444;
+	opacity: 0.6;
+}
+
+#buttonNew {
+	right: 20px;
+	bottom: 20px;
+	background: url(add.svg) center center no-repeat;
+}
+
+#newAccountNameField {
+  width: 240px;
+  height: 32px;
+  border: 1px solid white;
+}
+
+#newAccountBalanceField {
+  width: 100px;
+  height: 32px;
+  border: 1px solid white;
+}
+
+#txAmountField {
+	width: 120px;
+	height: 32px;
+	border: 1px solid white;
+}
+
+#txTextField {
+    border: 1px solid white;
+}
+
+#txDateField {
+	width: 125px;
+	height: 34px;
+	font-family: 'Courier',monospace;
+	border: 1px solid white;
+}
+
+#txTextField {
+  width: 100%;
+}
+
+#txAmountField {
+    color: white;
+    font-size: 1.2em;
+}
+
+#fileChooser {
+	height: 30px;
+	width: 100%;
+	font-size: 1.2em;
+	background-color: gray;
+}
+
+#buttonAddNewAccount {
+    background: url(new24px.svg) center center no-repeat;
+    float: right;
+}
+
+#buttonAddTx {
+    background: url(new24px.svg) center center no-repeat;
+    float: right;
+}
+
+#buttonSaveTx {
+    background: url(ok24px.svg) center center no-repeat;
+    float: right;
+}
+
+#buttonDeleteTx, #buttonDeleteConfirm {
+    background: url(delete24px.svg) center center no-repeat;
+    float: left;
+}

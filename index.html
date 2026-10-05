@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="black">
+  	<title>SolidMoney</title>
+	<link rel="manifest" href="manifest.json">
+  	<link rel="stylesheet" type="text/css" href="Money.css">
+  	<meta name="application-name" content="SolidMoney">
+</head>
+<body>
+<header id='header' class="header">
+    <div id="heading">
+        <span id="headerTitle">Accounts</span>
+    </div>
+</header>
+<main id="main">
+	<div id='listPanel'><ul id="list" class="list"></ul></div>
+	<div id='graphPanel'><canvas id='canvas' x='0' y='0' width='100%' height='100%'></canvas></div>
+	<div id='graphOverlay'><canvas id='overlay' x='0' y='0' width='100%' height='100%'></canvas></div>
+	<div id='curtain'></div>
+	<div id='buttonNew' class='round-button'></div>
+	<div id="newAccountDialog" class="dialog">
+    	<div class="dialog-title">New account</div>
+    	<div class="dialog-body"> name <input type="text" id="newAccountNameField"/></div>
+		<div class="dialog-body"> start <input type="date" id="newAccountDateField"/></div>
+		<div class="dialog-body"> with <button id='acSign' class='sign'>+</button>
+	    	<input type="number" id="newAccountBalanceField" />
+		</div>
+    	<div class="dialog-buttons">
+      		<button id="buttonAddNewAccount" class="icon-button"></button>  
+    	</div>
+	</div>
+	<div id="txDialog" class="dialog">
+    	<div class="dialog-body">
+    		<select id="txAccountChooser"></select> >
+    		<select id="txTransferChooser"></select>
+    	</div>
+		<div class="dialog-body"><input type="date" id="txDateField"/><span style='float:right;'>balance <span id='txBalance'>£.pp</span></span></div>
+		<div class="dialog-body"><button id='txSign' class='sign'>+</button>&nbsp;<input type="number" id="txAmountField"/>
+	    	<span style='float:right;'>monthly<input type='checkbox' class='check' id='txMonthly'/></span>
+	    </div>
+    	<div class="dialog-body"><input type="text" id="txTextField"/></div>
+    	<div class="dialog-buttons">
+    		<button id="buttonAddTx" class="icon-button"></button>
+    		<button id="buttonSaveTx" class="icon-button"></button>
+	  		<button id="buttonDeleteTx" class="icon-button"></button>
+    	</div>
+	</div>
+	<div id='messageDialog' class='dialog'>
+		<div id='message'></div>
+	</div>
+	<!--div id='dataDialog' class='dialog'>
+		<div id='dataMessage'></div>
+		<button id='backupButton' class='text-button'>BACKUP</button>
+		<button id='restoreButton' class='text-button'>RESTORE</button>
+	</div-->
+	<!--input type="file" id="fileChooser" accept=".json" style="display: none"-->
+</main>
+<script src="Money.js" async></script>
+</body>
+</html>
