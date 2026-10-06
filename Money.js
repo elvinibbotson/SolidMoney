@@ -19,10 +19,8 @@ var currentDialog=null;
 var view='list';
 var canvas=null;
 var today;
-// var backupDay;
 var latest;
 var months="JanFebMarAprMayJunJulAugSepOctNovDec";
-// var root; // OPFS root directory
 // solid session & authentication...
 const auth=solidClientAuthentication;
 const session=auth.getDefaultSession();
@@ -299,7 +297,7 @@ function listAccounts() {
 	console.log("list "+accounts.length+" accounts");
   	var item = null;
 	id('list').innerHTML="";
-	var html="Money";
+	var html="SolidMoney";
 	if(accounts.length>0) {
 	    accounts.sort(function(a,b) { return (a.name>b.name)?1:-1}); //alpha-sort on account names
 		console.log("accounts sorted - first: "+accounts[0].name);
@@ -335,7 +333,7 @@ function listAccounts() {
 			id('txTransferChooser').options.add(ac);
 	  	}
 	  	console.log("transfer option 0: "+id('txTransferChooser').options[0].text);
-		html="Money <span class='amount'>"+pp(grandTotal)+"</span>";
+		html="SolidMoney <span class='amount'>"+pp(grandTotal)+"</span>";
 		today=new Date();
 		var month=today.getMonth()+1;
 		console.log('save total '+grandTotal+' for month '+month);
@@ -603,38 +601,6 @@ function save() {
 	window.localStorage.setItem('MoneyData',json);
 	window.localStorage.setItem('latest',new Date().toString());
 }
-// id('backupButton').addEventListener('click',backup);
-/*
-id('restoreButton').addEventListener('click',function() {
-	var event = new MouseEvent('click',{
-		bubbles: true,
-		cancelable: true,
-		view: window
-	});
-	fileChooser.dispatchEvent(event);
-	fileChooser.onchange=(event)=>{
-		var file=id('fileChooser').files[0];
-    	console.log("file name: "+file.name);
-    	var fileReader=new FileReader();
-    	fileReader.addEventListener('load', function(evt) {
-			console.log("file read: "+evt.target.result);
-    		var data=evt.target.result;
-    		var json=JSON.parse(data);
-    		logs=json.logs;
-    		console.log(logs.length+" logs loaded");
-    		if(json.totals) totals=json.totals
-			console.log('totals: '+totals);
-    		save();
-    		console.log('data imported and saved');
-    		load();
-    	});
-    	fileReader.readAsText(file);
-	}
-	id('dataMessage').innerText='';
-	id('backupButton').disabled=false;
-	toggleDialog('dataDialog',false);
-});
-*/
 // SOLID CODE
 function connect() {
 	message('CONNECT - logging in');
@@ -701,33 +667,10 @@ async function upload() {
     		throw new Error(`Response status: ${response.status}`);
     	}
     	console.log('data saved, status: '+response.status);
-    	// var today=Math.floor(new Date().getTime()/86400000);
-		// window.localStorage.setItem('backupDay',today);
     	message(logs.length+' logs uploaded');
 	}
 	catch(error) {console.error(error.message);alert(error.message);}
 }
-/*
-function backup() {
-  	var fileName="MoneyData.json";
-  	var data={'logs':logs,'totals':totals};
-  	var json=JSON.stringify(data);
-	var blob=new Blob([json], {type:"data:application/json"});
-  	var a=document.createElement('a');
-	a.style.display='none';
-    var url=window.URL.createObjectURL(blob);
-	console.log("data ready to save: "+blob.size+" bytes");
-   	a.href=url;
-   	a.download=fileName;
-    document.body.appendChild(a);
-    a.click();
-    today=Math.floor(new Date().getTime()/86400000);
-    window.localStorage.setItem('backupDay',today);
-    id('dataMessage').innerText='';
-    id('restoreButton').disabled=false;
-    toggleDialog('dataDialog',false);
-}
-*/
 // DISPLAY MESSAGE
 function message(text,clear) {
 	console.log(text);
