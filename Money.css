@@ -94,6 +94,15 @@ input[type=number] {
   z-index: 5;
 }
 
+#buttonSync {
+	float: right;
+	width: 24px;
+	height: 24px;
+	border: none;
+	margin-right: 20px;
+	background: url(sync24px.svg) center center no-repeat;
+}
+
 .text-button {
 	border: none;
 	margin: 15px;

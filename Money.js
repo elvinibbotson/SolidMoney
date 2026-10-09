@@ -42,10 +42,6 @@ id('main').addEventListener('touchend', function(event) {
     	}
     	else if(dragX<-50) { // drag left
     	// console.log('DRAG LEFT');
-    		/*
-    		if(currentDialog) toggleDialog(currentDialog,false); // close an open dialog or...
-    		else 
-    		*/
     		if(account) { // ...switch to account graph view
     			view='graph';
     			id('listPanel').style.display='none';
@@ -73,13 +69,7 @@ id('main').addEventListener('touchend', function(event) {
     }
 })
 // TAP HEADER - DATA MENU
-id('header').addEventListener('click',function() {
-	upload();
-	/*
-	if(account) return;
-	toggleDialog('dataDialog',true); // ..backup/restore data
-	*/
-})
+id('buttonSync').addEventListener('click',connect);
 // NEW BUTTON: create new account or transaction
 id('buttonNew').addEventListener('click',function() {
 	console.log("new");
@@ -342,6 +332,7 @@ function listAccounts() {
 		console.log('save totals... '+totals);
 	}
 	id('headerTitle').innerHTML=html;
+	id('buttonSync').style.display='block';
 	id('listPanel').scrollIntoView();
 }
 // OPEN ACCOUNT
@@ -432,6 +423,7 @@ function listTransactions() {
 	if(balance<0) html+="-";
 	html+=pp(balance)+"</span>";
 	id('headerTitle').innerHTML=html;
+	id('buttonSync').style.display='none';
 	id('listPanel').scrollIntoView();
 }
 // DRAW ACCOUNT GRAPH
@@ -501,15 +493,6 @@ function drawTotals() {
 		canvas.lineTo(scrW,i*h);
 	}
 	canvas.stroke();
-	/*
-	canvas.beginPath();
-	canvas.strokeStyle='silver'; // current grand grandTotal
-	y=11*h-grandTotal/10000000*h;
-	console.log('grandTotal: '+grandTotal+'; y: '+y);
-	canvas.moveTo(0,y);
-	canvas.lineTo(scrW,y);
-	canvas.stroke();
-	*/
 	canvas.fillStyle='white';
 	for(i=1;i<13;i++) canvas.fillText((i*100)+'k',5,scrH-i*h-h-2);
 	var d=11-new Date().getMonth();
@@ -519,9 +502,7 @@ function drawTotals() {
 function load() {
 	var data=localStorage.getItem('MoneyData');
 	if(!data) {
-		id('dataMessage').innerText='No data - restore backup?';
-		id('backupButton').disabled=true;
-		toggleDialog('dataDialog',true);
+		message('No data - restore backup?');
 		return;
 	}
 	logs=JSON.parse(data);
@@ -588,13 +569,6 @@ function load() {
     }
   	console.log(accounts.length+" accounts");
 	listAccounts();
-	today=Math.floor(new Date().getTime()/86400000);
-	var days=today-backupDay;
-	if(days>4) { // backup reminder every 5 days
-		id('dataMessage').innerText=days+' days since last backup';
-		id('restoreButton').disabled=true;
-		toggleDialog('dataDialog',true);
-	}
 }
 function save() {
 	var json=JSON.stringify(logs);
@@ -608,7 +582,7 @@ function connect() {
 		auth.login({
     		oidcIssuer:"https://privatedatapod.com",
     		redirectUrl:window.location.href,
-    		clientName:"SolidLocker"
+    		clientName:"SolidMoney"
     	});
 	}
 	catch(error) {console.error(error.message);}
@@ -636,7 +610,7 @@ async function sync() {
 		console.log('response - last modified: '+response.lastModified);
 		logs=body.logs;
 		console.log(logs.length+" logs loaded");
-    	if(json.totals) totals=json.totals
+    	if(body.totals) totals=body.totals
 		console.log('totals: '+totals);
 		save();
 		message(logs.length+' logs downloaded',false);
@@ -711,9 +685,6 @@ totals=JSON.parse(window.localStorage.getItem('totals')); // grand totals for ea
 console.log('totals: '+totals);
 if(totals==null) totals=[];
 console.log(totals.length+' totals');
-// backupDay=window.localStorage.getItem('backupDay');
-// if(!backupDay) backupDay=0;
-// console.log('last backup on day '+backupDay);
 latest=window.localStorage.getItem('latest');
 if(!latest) {
 	latest=new Date(0).toString(); // defaults to 1970
