@@ -690,7 +690,8 @@ if(!latest) {
 	latest=new Date(0).toString(); // defaults to 1970
 	window.localStorage.setItem('latest',latest);
 }
-load(); // WAS readData();
+load();
+if(session.info.isLoggedIn) sync(); // initial sync
 // implement service worker if browser is PWA friendly
 if (navigator.serviceWorker.controller) {
 	console.log('Active service worker found, no need to register')
