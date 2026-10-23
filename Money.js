@@ -607,7 +607,7 @@ async function sync() {
 	console.log('response: '+response.json);
 	if(response.ok) {
 		var body=await response.json();
-		console.log('response - last modified: '+response.lastModified);
+		console.log('response - last modified: '+response.headers.get('Last-Modified'));
 		logs=body.logs;
 		console.log(logs.length+" logs loaded");
     	if(body.totals) totals=body.totals
