@@ -18,7 +18,7 @@ var list=[];
 var currentDialog=null;
 var view='list';
 var canvas=null;
-var today;
+var syncDay;
 var latest;
 var months="JanFebMarAprMayJunJulAugSepOctNovDec";
 // solid session & authentication...
@@ -622,6 +622,8 @@ async function sync() {
 	latest=new Date().toString();
 	window.localStorage.setItem('latest',latest);
 	console.log('latest set to '+latest);
+	syncDay=new Date()/86400000;
+	window.localStorage.setItem('syncDay',syncDay);
 	load(); // ensure working with latest dataset
 }
 async function upload() {
@@ -642,6 +644,8 @@ async function upload() {
     	}
     	console.log('data saved, status: '+response.status);
     	message(logs.length+' logs uploaded');
+    	syncDay=new Date()/86400000;
+		window.localStorage.setItem('syncDay',syncDay);
 	}
 	catch(error) {console.error(error.message);alert(error.message);}
 }
@@ -690,8 +694,14 @@ if(!latest) {
 	latest=new Date(0).toString(); // defaults to 1970
 	window.localStorage.setItem('latest',latest);
 }
+syncDay=window.localStorage.getItem('syncDay');
+if(!syncDay) {
+	syncDay=new Date(0)/86400000; // default to 1970
+	window.localStorage.setItem('syncDay',syncDay);
+}
 load();
-if(session.info.isLoggedIn) sync(); // initial sync
+// if(session.info.isLoggedIn) sync(); // initial sync
+if(new Date()/86400000-syncDay>5) message('More than 5 dyas since last sync.');
 // implement service worker if browser is PWA friendly
 if (navigator.serviceWorker.controller) {
 	console.log('Active service worker found, no need to register')
