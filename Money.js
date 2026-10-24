@@ -616,7 +616,7 @@ async function sync() {
 		message(logs.length+' logs downloaded',false);
 	}
 	else { // local data is newer - upload to pod
-		message('|no download - UPLOAD',false);
+		message('no download - UPLOAD',false);
 		upload();
 	}
 	latest=new Date().toString();
@@ -701,7 +701,7 @@ if(!syncDay) {
 }
 load();
 // if(session.info.isLoggedIn) sync(); // initial sync
-if(new Date()/86400000-syncDay>5) message('More than 5 dyas since last sync.');
+if(new Date()/86400000-syncDay>5) message('More than 5 days since last sync.');
 // implement service worker if browser is PWA friendly
 if (navigator.serviceWorker.controller) {
 	console.log('Active service worker found, no need to register')
