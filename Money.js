@@ -574,7 +574,8 @@ function save() {
 	var json=JSON.stringify(logs);
 	window.localStorage.setItem('MoneyData',json);
 	console.log(logs.length+' logs saved');
-	window.localStorage.setItem('latest',new Date().toString());
+	latest=new Date().toString();
+	window.localStorage.setItem('latest',latest);
 }
 // SOLID CODE
 function connect() {
@@ -620,9 +621,6 @@ async function sync() {
 		message('no download - UPLOAD',false);
 		upload();
 	}
-	latest=new Date().toString();
-	window.localStorage.setItem('latest',latest);
-	console.log('latest set to '+latest);
 	syncDay=new Date()/86400000;
 	window.localStorage.setItem('syncDay',syncDay);
 	load(); // ensure working with latest dataset
