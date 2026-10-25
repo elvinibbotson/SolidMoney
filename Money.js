@@ -573,6 +573,7 @@ function load() {
 function save() {
 	var json=JSON.stringify(logs);
 	window.localStorage.setItem('MoneyData',json);
+	console.log(logs.length+' logs saved');
 	window.localStorage.setItem('latest',new Date().toString());
 }
 // SOLID CODE
@@ -642,7 +643,7 @@ async function upload() {
 		if(!response.ok) {
     		throw new Error(`Response status: ${response.status}`);
     	}
-    	console.log('data saved, status: '+response.status);
+    	console.log('data uploaded, status: '+response.status);
     	message(logs.length+' logs uploaded');
     	syncDay=new Date()/86400000;
 		window.localStorage.setItem('syncDay',syncDay);
@@ -700,7 +701,6 @@ if(!syncDay) {
 	window.localStorage.setItem('syncDay',syncDay);
 }
 load();
-// if(session.info.isLoggedIn) sync(); // initial sync
 if(new Date()/86400000-syncDay>5) message('More than 5 days since last sync.');
 // implement service worker if browser is PWA friendly
 if (navigator.serviceWorker.controller) {
