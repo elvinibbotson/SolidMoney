@@ -616,6 +616,7 @@ async function sync() {
 		console.log('totals: '+totals);
 		save();
 		message(logs.length+' logs downloaded',false);
+		disconnect();
 	}
 	else { // local data is newer - upload to pod
 		message('no download - UPLOAD',false);
@@ -629,7 +630,14 @@ async function upload() {
 	if(!session.info.isLoggedIn) {connect(); return;} // ensure connected
   	console.log("UPLOAD",false);
 	var fileName="drive/SolidMoneyData.json";
-	console.log(logs.length+" logs - save");
+	console.log(logs.length+" logs - upload");
+	
+	if(logs.length<1) {
+		message('NO DATA');
+		disconnect();
+		return;
+	}
+	
 	var data={'logs':logs,'totals':totals};
   	var json=JSON.stringify(data);
 	try {
@@ -643,10 +651,15 @@ async function upload() {
     	}
     	console.log('data uploaded, status: '+response.status);
     	message(logs.length+' logs uploaded');
+    	disconnect();
     	syncDay=new Date()/86400000;
 		window.localStorage.setItem('syncDay',syncDay);
 	}
 	catch(error) {console.error(error.message);alert(error.message);}
+}
+async function disconnect() {
+	var response=await session.logout({logoutType: 'app'});
+	console.log('logout response: ${response.status}');
 }
 // DISPLAY MESSAGE
 function message(text,clear) {
